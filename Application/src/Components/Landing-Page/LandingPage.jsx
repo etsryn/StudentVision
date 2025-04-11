@@ -285,7 +285,7 @@ const LandingPage = () => {
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <div className={styles.logo}>StudentVision</div>
+        <Link to="/"><div className={styles.logo}>StudentVision</div></Link>
         <nav className={styles.nav}>
           <a href="#tech">Technologies</a>
           <a href="#features">Features</a>

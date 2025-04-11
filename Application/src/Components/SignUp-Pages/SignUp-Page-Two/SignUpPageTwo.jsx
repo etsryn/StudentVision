@@ -20,7 +20,7 @@ const SignUpPageTwo = () => {
       <div className={styles.container}>
         {/* Header / Navigation */}
         <header className={styles.headerNav}>
-          <div className={styles.logo}>StudentVision</div>
+          <Link to="/"><div className={styles.logo}>StudentVision</div></Link>
           <div className={styles.headerActions}>
             Existing User ?<Link to="/login">
               <button className={styles.loginBtn}>

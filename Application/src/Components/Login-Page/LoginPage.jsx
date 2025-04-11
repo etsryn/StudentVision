@@ -16,7 +16,7 @@ const LandingPage = () => {
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <div className={styles.logo}>StudentVision</div>
+        <Link to="/"><div className={styles.logo}>StudentVision</div></Link>
         <div className={styles.headerActions}>
           New to us ?
           <Link to="/signup/personal"><button className={styles.signupBtn}>
