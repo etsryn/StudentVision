@@ -1,16 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SignUpPageTwo.module.css";
 import { UserPlus, LogIn } from "lucide-react";
 import aiIcon from "../../../assets/aiIcon.svg";
 import { useRegistration } from "../../Student-Registration-Context/RegistrationContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+const countryCodes = [
+    { name: "India", code: "+91" },
+    { name: "USA", code: "+1" },
+    { name: "UK", code: "+44" },
+    { name: "Saudi Arabia", code: "+966" },
+    { name: "UAE", code: "+971" },
+    { name: "Pakistan", code: "+92" },
+    { name: "Bangladesh", code: "+880" },
+  ];
+  
 const SignUpPageTwo = () => {
     const iconSize = `${0.085 * (window.innerWidth / 100)}vw`;
 
-    const { studentData, setStudentData } = useRegistration();
+    const { studentData, setStudentData  } = useRegistration();
+    const navigate = useNavigate();
+    const [selectedCountry, setSelectedCountry] = useState("");
   
-    const isNextEnabled = studentData.firstName.trim() && studentData.lastName.trim();
+    useEffect(() => {
+      if (!studentData.firstName?.trim() || !studentData.lastName?.trim()) {
+        navigate("/signup/personal");
+      }
+    }, [studentData, navigate]);
+  
+    const isValidEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  
+    const isValidContact = (contact) => /^\d{8,18}$/.test(contact.replace(/\D/g, "")); 
+  
+    const isNextEnabled = isValidEmail(studentData.email) && selectedCountry && isValidContact(studentData.contactNumber);
+  
+    const handleCountryChange = (e) => {
+      const country = countryCodes.find(c => c.name === e.target.value);
+      setSelectedCountry(country);
+      setStudentData({ ...studentData, contactNumber: country.code });
+    };
   
     // Open/Close Control for ChatGPT Support -----------------------------------------------------------------------------------------
   
@@ -38,30 +66,54 @@ const SignUpPageTwo = () => {
         {/* Hero Section */}
         <section className={styles.hero}>
         <div className={styles.formWrapper}>
-          <div className={styles.formContainer}>
-            <h2><UserPlus size={40} strokeWidth={1.5} /><br />Student Registration</h2>
-            <br />
-            <form className={styles.formGrid}>
+        <div className={styles.formContainer}>
+          <h2><UserPlus size={40} strokeWidth={1.5} /><br />Student Registration</h2>
+          <br />
+          <form className={styles.formGrid}>
+            {/* Email Field - Full Width */}
+            <div className={styles.inputGroupFull}>
+              <input type="email" required value={studentData.email} onChange={(e) => setStudentData({ ...studentData, email: e.target.value })} autoFocus />
+              <label>Email</label>
+              {!isValidEmail(studentData.email) && studentData.email.length > 0 && (
+                <span className={styles.errorMsg}>Invalid Email Id</span>
+              )}
+            </div>
+
+            {/* Contact Numbers Side by Side */}
+            <div className={styles.inputRow}>
+              {/* Country Selection Dropdown (Leftmost) */}
               <div className={styles.inputGroup}>
-                <input type="text" required value={studentData.firstName} onChange={(e) => setStudentData({ ...studentData, firstName: e.target.value })}/>
-                <label>First Name</label>
+                <select value={selectedCountry.name || ""} className={styles.countryCode} onChange={handleCountryChange}>
+                  <option value="" disabled>Select Country Code ▼</option>
+                  {countryCodes.map((country, index) => (
+                    <option key={index} value={country.name}>{country.name} ({country.code})</option>
+                  ))}
+                </select>
               </div>
+
+              {/* Contact Number with Country Code */}
               <div className={styles.inputGroup}>
-                <input type="text" required value={studentData.middleName} onChange={(e) => setStudentData({ ...studentData, middleName: e.target.value })} />
-                <label>Middle Name <sup>(Opt)</sup></label>
+                <input type="tel" required value={studentData.contactNumber} onChange={(e) => setStudentData({ ...studentData, contactNumber: e.target.value })} />
+                <label>Contact Number</label>
+                {!isValidContact(studentData.contactNumber) && studentData.contactNumber.length > 0 && (
+                  <span className={styles.errorMsg}>Invalid Contact Number</span>
+                )}
               </div>
+
+              {/* Alternative Contact Number */}
               <div className={styles.inputGroup}>
-                <input type="text" required value={studentData.lastName} onChange={(e) => setStudentData({ ...studentData, lastName: e.target.value })}/>
-                <label>Last Name</label>
+                <input type="tel" required value={studentData.contactNumberAlternative} onChange={(e) => setStudentData({ ...studentData, contactNumberAlternative: e.target.value })} />
+                <label>Contact Number <sup>(Opt)</sup></label>
               </div>
-            </form>
-  
-            {/* Next Button */}
-            <Link to={isNextEnabled ? "/login/student/registration/SS" : "#"} className={isNextEnabled ? styles.nextEnabled : styles.nextDisabled}>
-              <button className={styles.nextBtn} disabled={!isNextEnabled}>Proceed</button>
-            </Link>
-          </div>
+            </div>
+          </form>
+
+          {/* Next Button with Link */}
+          <Link to={isNextEnabled ? "/login/student/registration/next-step" : "#"} className={isNextEnabled ? styles.nextEnabled : styles.nextDisabled}>
+            <button className={styles.nextBtn} disabled={!isNextEnabled}>Proceed</button>
+          </Link>
         </div>
+      </div>
         </section>
   
         {/* Chatbot - Dark Mode, Futuristic AI Assistant */}

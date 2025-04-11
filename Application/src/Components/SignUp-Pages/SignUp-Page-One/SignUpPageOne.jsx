@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./SignUpPageOne.module.css";
 import { UserPlus, LogIn } from "lucide-react";
 import aiIcon from "../../../assets/aiIcon.svg";
@@ -57,7 +57,7 @@ const SignUpPageOne = () => {
           </form>
 
           {/* Next Button */}
-          <Link to={isNextEnabled ? "/login/student/registration/SS" : "#"} className={isNextEnabled ? styles.nextEnabled : styles.nextDisabled}>
+          <Link to={isNextEnabled ? "/signup/contact" : "#"} className={isNextEnabled ? styles.nextEnabled : styles.nextDisabled}>
             <button className={styles.nextBtn} disabled={!isNextEnabled}>Proceed</button>
           </Link>
         </div>
