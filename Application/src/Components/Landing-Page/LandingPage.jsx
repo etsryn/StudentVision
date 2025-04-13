@@ -5,6 +5,7 @@ import aiIcon from "../../assets/aiIcon.svg";
 import landingImage from "../../assets/landing-image.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import urlRoutes from "../../Constant/Navigation/Routes/landing-signup-routes";
 
 const LandingPage = () => {
   const iconSize = `${0.085 * (window.innerWidth / 100)}vw`;
@@ -285,7 +286,7 @@ const LandingPage = () => {
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <Link to="/"><div className={styles.logo}>StudentVision</div></Link>
+        <Link to={urlRoutes.landing}><div className={styles.logo}>StudentVision</div></Link>
         <nav className={styles.nav}>
           <a href="#tech">Technologies</a>
           <a href="#features">Features</a>
@@ -293,7 +294,7 @@ const LandingPage = () => {
           <a href="#contact">Contact</a>
         </nav>
         <div className={styles.headerActions}>
-          <Link to="/login">
+          <Link to={urlRoutes.login}>
             <button className={styles.loginBtn}>
               Login{" "}
               <LogIn
@@ -303,7 +304,7 @@ const LandingPage = () => {
               />
             </button>
           </Link>
-          <Link to="/signup/personal">
+          <Link to={urlRoutes.signup.personal}>
             <button className={styles.signupBtn}>
             Sign Up{" "}
             <UserPlus
@@ -390,13 +391,13 @@ const LandingPage = () => {
         <h2>Powering Advanced Technologies</h2>
         <div className={styles.featureList}>
           <div className={styles.featureItem}>
-            <img src="/assets/neuralnet.svg" alt="Neural Networks" />
-            <h3>Neural Networks</h3>
+            <img src="/assets/neuralnet.svg" alt="Dataverse" />
+            <h3>Dataverse</h3>
             <p>Discover and build deep learning models with ease.</p>
           </div>
           <div className={styles.featureItem}>
-            <img src="/assets/datascience.svg" alt="Data Analytics" />
-            <h3>Data Analytics</h3>
+            <img src="/assets/datascience.svg" alt="Google Colab" />
+            <h3>Integrated Google Colab</h3>
             <p>Transform raw data into actionable insights.</p>
           </div>
           <div className={styles.featureItem}>

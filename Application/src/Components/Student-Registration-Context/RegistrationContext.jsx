@@ -12,6 +12,7 @@ export function RegistrationProvider({ children }) {
         email: "",
         contactNumber: "",
         contactNumberAlternative: "",
+        otp: "",
     });
 
     return (

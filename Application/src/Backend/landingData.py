@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
+from dotenv import load_dotenv
+import os
 
 app = FastAPI()
 
@@ -15,12 +17,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# Loading .env file
+load_dotenv(dotenv_path='../Constant/Database-Credentials/.env')
+
 # Database Connection
 db_config = {
-    "host": "localhost",  # Change if necessary
-    "user": "StudentVision",
-    "password": "StudentVision@mysql",
-    "database": "StudentVisionDB",
+    "host": os.getenv('DB_HOST'),  # Change if necessary
+    "user": os.getenv('DB_USER'),
+    "password": os.getenv('DB_PASSWORD'),
+    "database": os.getenv('DB_NAME'),
 }
 
 # Define the data model

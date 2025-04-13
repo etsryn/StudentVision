@@ -4,6 +4,7 @@ import { LogIn, UserPlus } from "lucide-react";
 import aiIcon from "../../assets/aiIcon.svg";
 import { GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
+import urlRoutes from "../../Constant/Navigation/Routes/landing-signup-routes";
 
 const LandingPage = () => {
   const iconSize = `${0.085 * (window.innerWidth / 100)}vw`;
@@ -16,10 +17,10 @@ const LandingPage = () => {
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <Link to="/"><div className={styles.logo}>StudentVision</div></Link>
+        <Link to={urlRoutes.landing}><div className={styles.logo}>StudentVision</div></Link>
         <div className={styles.headerActions}>
           New to us ?
-          <Link to="/signup/personal"><button className={styles.signupBtn}>
+          <Link to={urlRoutes.signup.personal}><button className={styles.signupBtn}>
             Sign Up{" "}
             <UserPlus
               size={iconSize}

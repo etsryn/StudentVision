@@ -4,8 +4,20 @@ import { UserPlus, LogIn } from "lucide-react";
 import aiIcon from "../../../assets/aiIcon.svg";
 import { useRegistration } from "../../Student-Registration-Context/RegistrationContext";
 import { Link } from "react-router-dom";
+import urlRoutes from "../../../Constant/Navigation/Routes/landing-signup-routes";
+import { createRoot } from "react-dom/client";
+import RootComponent from "./RootComponent"; // or wherever the file is
+import { useAuth0 } from "@auth0/auth0-react";
+
+
+
+
+
+
 
 const SignUpPageOne = () => {
+  
+  const { loginWithRedirect } = useAuth0();
   const iconSize = `${0.085 * (window.innerWidth / 100)}vw`;
 
   const { studentData, setStudentData } = useRegistration();
@@ -15,14 +27,20 @@ const SignUpPageOne = () => {
   // Open/Close Control for ChatGPT Support -----------------------------------------------------------------------------------------
 
   const [isSupportOpen, setIsSupportOpen] = useState(false);
-
+// Function to trigger Google sign-up
+const handleGoogleSignUp = () => {
+  loginWithRedirect({
+    connection: "google-oauth2", // Ensure this matches your Auth0 connection name for Google
+    scope: "openid profile email",
+  });
+};
   return (
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <Link to="/"><div className={styles.logo}>StudentVision</div></Link>
+        <Link to={urlRoutes.landing}><div className={styles.logo}>StudentVision</div></Link>
         <div className={styles.headerActions}>
-          Existing User ?<Link to="/login">
+          Existing User ?<Link to={urlRoutes.login}>
             <button className={styles.loginBtn}>
               Login{" "}
               <LogIn
@@ -57,9 +75,14 @@ const SignUpPageOne = () => {
           </form>
 
           {/* Next Button */}
-          <Link to={isNextEnabled ? "/signup/contact" : "#"} className={isNextEnabled ? styles.nextEnabled : styles.nextDisabled}>
+          <Link to={isNextEnabled ? urlRoutes.signup.contact : "#"} className={isNextEnabled ? styles.nextEnabled : styles.nextDisabled}>
             <button className={styles.nextBtn} disabled={!isNextEnabled}>Proceed</button>
           </Link>
+          <div className={styles.googleSignup}>
+              <button onClick={handleGoogleSignUp} className={styles.googleButton}>
+                Sign Up with Google
+              </button>
+          </div>
         </div>
       </div>
       </section>

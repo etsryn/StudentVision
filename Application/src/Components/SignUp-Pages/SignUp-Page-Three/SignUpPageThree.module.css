@@ -114,98 +114,28 @@
     padding: 40px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px);
-    width: 50vw;
+    width: 20vw;
     /* Increased width */
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #00bcd4;
 }
 
-/* 🖋 Form Layout */
+/* 🖋 Input Fields */
 .formGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 56px; /* Space between input sections */
-}
-
-/* 🔹 Country Code Dropdown */
-.countryCode {
-    position: relative;
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-    font-size: 16px;
-    outline: none;
-    appearance: none; /* Remove default browser styling */
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-}
-
-/* 🔻 Custom Dropdown Arrow */
-.countryCode::after {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
-/* 🔹 On Hover */
-.countryCode:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* 🔹 On Focus */
-.countryCode:focus {
-    border-color: #00bcd4;
-    background: rgba(255, 255, 255, 0.12);
-}
-
-/* 🔹 Dropdown Options */
-.countryCode option {
-    background: #121826;
-    color: white;
-    font-size: 16px;
-    padding: 10px;
-}
-
-/* 🔹 Disabled State */
-.countryCode:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-
-/* Email Input - Full Width */
-.inputGroupFull {
-    width: 100%;
-    position: relative;
-}
-
-/* Contact Numbers Side by Side */
-.inputRow {
     display: flex;
     justify-content: space-between;
     gap: 12px;
+    margin-bottom: 20px;
 }
 
-/* Shared Styles for Inputs */
-.inputGroup, .inputGroupFull {
+.inputGroup {
     position: relative;
-    width: 100%;
+    width: 18.5vw;
+    margin: 0vh 0vh 1vh 0vh;
 }
 
-.inputRow .inputGroup {
-    width: 15vw; /* Each input takes equal space */
-}
-
-/* Input Fields */
-.inputGroup input, .inputGroupFull input {
+.inputGroup input {
     width: 100%;
     padding: 10px;
     background: transparent;
@@ -217,12 +147,11 @@
     transition: 0.3s;
 }
 
-.inputGroup input:focus, .inputGroupFull input:focus {
+.inputGroup input:focus {
     border-bottom: 2px solid #00bcd4;
 }
 
-/* Labels */
-.inputGroup label, .inputGroupFull label {
+.inputGroup label {
     position: absolute;
     left: 0;
     top: 50%;
@@ -233,18 +162,13 @@
     pointer-events: none;
 }
 
-.inputGroup input:focus + label,
-.inputGroup input:valid + label,
-.inputGroupFull input:focus + label,
-.inputGroupFull input:valid + label {
+.inputGroup input:focus+label,
+.inputGroup input:valid+label {
     top: 0;
     font-size: 12px;
     /* color: #4caf50; */
 }
-.errorMsg {
-    color: red;
-    font-size: 0.8vw;
-}
+
 /* 🔹 Next Button */
 .nextBtn {
     width: 100%;
@@ -256,19 +180,29 @@
     font-size: 18px;
     font-weight: bold;
     transition: 0.3s ease;
-    margin: 5vh auto 0vw auto;
-  }
-  
-  .nextBtn:hover {
-    transform: scale(1.05);
-  }
-  
-  /* 🔹 Disable Button */
-  .nextDisabled {
+    margin: 3vh auto 0vh auto;
+}
+
+.nextBtn:hover {
+    transform: scale(1.01);
+}
+
+/* 🔹 Disable Button */
+.nextDisabled {
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.5;
-  }
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #007b8f, #006570, #004f59);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    margin: 3vh auto 0vh auto;
+}
 
 /* Floating AI Assistant Button */
 .entireAIAssistent {

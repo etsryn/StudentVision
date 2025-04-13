@@ -1,4 +1,5 @@
 create database StudentVisionDB;
+
 use StudentVisionDB;
 
 create table user_logs (

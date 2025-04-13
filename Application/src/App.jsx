@@ -1,30 +1,41 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CustomCursor from "./Components/Custom-Cursor/CustomCursor";
+import { Auth0Provider } from "@auth0/auth0-react";
 import LandingPage from "./Components/Landing-Page/LandingPage";
 import LoginPage from "./Components/Login-Page/LoginPage";
 import SignUpPageOne from "./Components/SignUp-Pages/SignUp-Page-One/SignUpPageOne";
 import SignUpPageTwo from "./Components/SignUp-Pages/SignUp-Page-Two/SignUpPageTwo";
+import SignUpPageThree from "./Components/SignUp-Pages/SignUp-Page-Three/SignUpPageThree";
 import { RegistrationProvider } from "./Components/Student-Registration-Context/RegistrationContext";
+import urlRoutes from "./Constant/Navigation/Routes/landing-signup-routes";
+
 function App() {
   return (
-    <RegistrationProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup/personal" element={<SignUpPageOne />} />
-          <Route path="/signup/contact" element={<SignUpPageTwo />} />
-          {/* <Route path="/login/student" element={<StudentLoginPage />} /> */}
-          {/* <Route path="/login/examiner" element={<ExaminerLoginPage />} /> */}
-          {/* <Route path="/login/student/registration/FS" element={<StudentRegistrationFS />} /> */}
-          {/* <Route path=02"/login/student/registration/SS" element={<StudentRegistrationSS />} /> */}
-        </Routes>
-      </Router>
-    </RegistrationProvider>
+    <Auth0Provider
+      domain="dev-gq11ev8w5p5sdw14.jp.auth0.com"
+      clientId="h9NnahBTzvE5k2nXiAWT2UYXcl6y5HeC"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <RegistrationProvider>
+        <Router>
+          <CustomCursor />
+          <Routes>
+            <Route path={urlRoutes.landing} element={<LandingPage />} />
+            <Route path={urlRoutes.login} element={<LoginPage />} />
+            <Route path={urlRoutes.signup.personal} element={<SignUpPageOne />} />
+            <Route path={urlRoutes.signup.contact} element={<SignUpPageTwo />} />
+            <Route path={urlRoutes.signup.email_opt_verification} element={<SignUpPageThree />} />
+            {/* <Route path="/login/student" element={<StudentLoginPage />} /> */}
+            {/* <Route path="/login/examiner" element={<ExaminerLoginPage />} /> */}
+            {/* <Route path="/login/student/registration/FS" element={<StudentRegistrationFS />} /> */}
+            {/* <Route path=02"/login/student/registration/SS" element={<StudentRegistrationSS />} /> */}
+          </Routes>
+        </Router>
+      </RegistrationProvider>
+    </Auth0Provider>
   );
 }
 
 export default App;
-
-// (login) SHA-256 Hash -> 428821350e9691491f616b754cd8315fb86d797ab35d843479e732ef90665324
-// (signup/personal) SHA-256 Hash -> 1bfcdbbfc3f85e4c08a4762b5e0579ddaa3c8a66a2b6f7d2c4f82368c9c1a348
-// (signup/contact) SHA-256 Hash -> e99ee8d04062a91600e21881c8be6e79f67ad9c2cd4f8f5443f1033204b8b52b
