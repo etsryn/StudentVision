@@ -11,8 +11,8 @@ const SignUpPageThree = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
   
   useEffect(() => {
-    let secondsLeft = 9090; // 1 minute 59 seconds in total seconds
-    // let secondsLeft = 90; // 1 minute 59 seconds in total seconds
+    // let secondsLeft = 9090; // 1 minute 59 seconds in total seconds
+    let secondsLeft = 90; // 1 minute 30 seconds in total seconds
     const sessionElement = document.getElementById("session-time-out");
     const timer = setInterval(() => {
       // Calculate minutes and seconds
@@ -62,7 +62,7 @@ const SignUpPageThree = () => {
     const sendOTP = async () => {
       if (studentData.email) {
         try {
-          const res = await axios.post("http://localhost:8000/send-otp", {
+          const res = await axios.post("http://localhost:8001/send-otp", {
             email: studentData.email,
             firstName: studentData.firstName,
           });
@@ -80,7 +80,7 @@ const SignUpPageThree = () => {
       if (isNextEnabled) {
           try {
               // Verify the OTP by sending the email and otp to the server
-              const res = await axios.post("http://localhost:8000/verify-otp", {
+              const res = await axios.post("http://localhost:8001/verify-otp", {
                   email: studentData.email,
                   otp: parseInt(studentData.otp, 10),
                 });
@@ -102,7 +102,7 @@ const SignUpPageThree = () => {
             }, 2000);
         }
     } catch (err) {
-        setPopupOpen(true);
+        // setPopupOpen(true);
         document.getElementById("registered-email").innerHTML = "d";
         console.error(err.response?.data?.detail || "OTP verification failed.");
         alert("An error occurred while verifying OTP. Please try again.");

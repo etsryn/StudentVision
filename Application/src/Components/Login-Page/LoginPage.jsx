@@ -5,6 +5,9 @@ import aiIcon from "../../assets/aiIcon.svg";
 import { GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
 import urlRoutes from "../../Constant/Navigation/Routes/landing-signup-routes";
+import { useAuth0 } from "@auth0/auth0-react";
+import GoogleLogo from "../../assets/GoogleLogo.png";
+import GitHubLogo from "../../assets/GitHubLogo.png";
 
 const LandingPage = () => {
   const iconSize = `${0.085 * (window.innerWidth / 100)}vw`;
@@ -13,21 +16,40 @@ const LandingPage = () => {
 
   const [isSupportOpen, setIsSupportOpen] = useState(false);
 
+  const {
+    user,
+    isAuthenticated,
+    isLoading,
+    getAccessTokenSilently,
+    loginWithRedirect,
+    loginWithPopup,
+  } = useAuth0();
+
+  const handleOAuthSignUp = (provider) => {
+    loginWithRedirect({
+      connection: provider, // either "google-oauth2" or "github"
+      scope: "openid profile email",
+    });
+  };
   return (
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <Link to={urlRoutes.landing}><div className={styles.logo}>StudentVision</div></Link>
+        <Link to={urlRoutes.landing}>
+          <div className={styles.logo}>StudentVision</div>
+        </Link>
         <div className={styles.headerActions}>
           New to us ?
-          <Link to={urlRoutes.signup.personal}><button className={styles.signupBtn}>
-            Sign Up{" "}
-            <UserPlus
-              size={iconSize}
-              strokeWidth={2}
-              className={styles.signupIcon}
-            />
-          </button></Link>
+          <Link to={urlRoutes.signup.personal}>
+            <button className={styles.signupBtn}>
+              Sign Up{" "}
+              <UserPlus
+                size={iconSize}
+                strokeWidth={2}
+                className={styles.signupIcon}
+              />
+            </button>
+          </Link>
         </div>
       </header>
 
@@ -50,8 +72,33 @@ const LandingPage = () => {
                 <label>Password</label>
               </div>
               <button className={styles.submitButton} type="submit">
-                Login <LogIn size={iconSize} strokeWidth={2} className={styles.loginIcon}/>
+                Login{" "}
+                <LogIn
+                  size={iconSize}
+                  strokeWidth={2}
+                  className={styles.loginIcon}
+                />
               </button>
+              <div className={styles.oAuthButtonContainer}>
+                <div className={styles.googleSignup}>
+                  <button
+                    onClick={() => handleOAuthSignUp("google-oauth2")}
+                    className={styles.googleButton}
+                  >
+                    <img src={GoogleLogo} alt="Google Logo" />
+                    Sign Up with Google
+                  </button>
+                </div>
+                <div className={styles.githubSignup}>
+                  <button
+                    onClick={() => handleOAuthSignUp("github")}
+                    className={styles.githubButton}
+                  >
+                    <img src={GitHubLogo} alt="Github Logo" />
+                    Sign Up with GitHub
+                  </button>
+                </div>
+              </div>
             </form>
           </div>
         </div>

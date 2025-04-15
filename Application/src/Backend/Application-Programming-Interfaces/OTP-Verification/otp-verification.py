@@ -16,6 +16,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:5173",
+    "http://localhost:5174",
 ]
 
 
@@ -118,3 +119,13 @@ async def verify_otp(request: OTPVerificationRequest):
     else:
         # raise HTTPException(status_code=400, detail="Invalid OTP")
         return {"failure": True, "message": "OTP verification failed"}
+
+
+import uvicorn
+import os
+if __name__ == "__main__":
+    uvicorn.run("otp-verification:app", host="0.0.0.0", port=8001, reload=True, reload_dirs=[os.path.join(os.path.dirname(os.path.abspath(__file__)), "../OTP-Verification")])
+
+
+# Path : src\Backend\Application-Programming-Interfaces\OTP-Verification
+# Execution Command : uvicorn otp-verification:app --host 0.0.0.0 --port 8000 --reload

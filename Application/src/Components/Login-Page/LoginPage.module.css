@@ -78,6 +78,7 @@ body {
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
   width: 8.3vw;
+  color: white;
 }
 
 .signupIcon {
@@ -122,10 +123,10 @@ body {
   padding: 40px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  width: 380px;
+  width: 430px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  height: 58vh;
+  height: 62vh;
   color: #00bcd4;
 }
 
@@ -139,7 +140,7 @@ body {
 .inputBox {
   position: relative;
   margin-bottom: 6.5vh;
-  margin-top: 6.5vh;
+  margin-top: 2.5vh;
 }
 
 .inputBox input {
@@ -180,7 +181,7 @@ body {
 
 /* 🔹 Modern Animated Button */
 .submitButton {
-  width: 100%;
+  width: 29vw;
   padding: 12px;
   background: linear-gradient(to right, #007b8f, #006570, #004f59);
   color: white;
@@ -191,6 +192,7 @@ body {
   font-weight: bold;
   transition: 0.3s ease;
   position: relative;
+  left: -10px;
   overflow: hidden;
   margin-top: 3vh;
 }
@@ -198,6 +200,104 @@ body {
 .submitButton:hover {
   transform: scale(1.01);
   /* box-shadow: 0 4px 10px rgba(76, 175, 80, 0.5); */
+}
+
+.oAuthButtonContainer {
+  display: flex;
+  flex-direction: row;  /* Arrange children side by side */
+  justify-content: center;
+  align-items: center;
+  gap: 2vh;           /* Space between the buttons */
+  margin-top: 20px;
+  width: 100%;         /* Ensure container takes available width */
+}
+
+.googleSignup,
+.githubSignup {
+  /* These inner containers simply wrap the buttons, no additional flex needed here */
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for the buttons */
+.googleButton,
+.githubButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1vh;
+  padding: 0.8vw 2vw;
+  min-width: 14.1vw;
+  /* width: 12.5vw; */
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Google Button Style */
+.googleButton {
+  background-color: #ffffff;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+}
+
+.googleButton:hover {
+  background-color: #dcdedf;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1vh;
+  padding: 0.8vw 2vw;
+  min-width: 14.1vw;
+  /* width: 12.5vw; */
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* GitHub Button Style */
+.githubButton {
+  background-color: #24292e;
+  color: #ffffff;
+  border: 1px solid #1b1f23;
+}
+
+.githubButton:hover {
+  background-color: #2f363d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1vh;
+  padding: 0.8vw 2vw;
+  min-width: 14.1vw;
+  /* width: 12.5vw; */
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Logo Image Styles (within buttons) */
+.googleButton img,
+.githubButton img {
+  height: 20px;
+  width: 20px;
+}
+.githubButton img {
+  filter: invert(1);
 }
 
 /* Floating AI Assistant Button */

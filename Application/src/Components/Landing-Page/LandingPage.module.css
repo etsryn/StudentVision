@@ -91,6 +91,7 @@
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
   width: 8.3vw;
+  color: white;
 }
 
 .loginIcon {
@@ -102,6 +103,13 @@
 }
 
 .signupIcon {
+  position: relative;
+  display: inline-block;
+  top: 0.5vh;
+  left: 0.4vw;
+}
+
+.logoutIcon {
   position: relative;
   display: inline-block;
   top: 0.5vh;

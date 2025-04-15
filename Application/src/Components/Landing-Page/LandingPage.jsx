@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
-import { LogIn, UserPlus } from "lucide-react";
+import { LogIn, UserPlus, LogOut } from "lucide-react";
 import aiIcon from "../../assets/aiIcon.svg";
 import landingImage from "../../assets/landing-image.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import urlRoutes from "../../Constant/Navigation/Routes/landing-signup-routes";
+// import { useRegistration } from "../Student-Registration-Context/RegistrationContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const LandingPage = () => {
   const iconSize = `${0.085 * (window.innerWidth / 100)}vw`;
@@ -281,12 +283,70 @@ const LandingPage = () => {
   // Function to Send Data to Python Backend API  -----------------------------------------------------------------------------------
 
   // Returning Landing Page to App.jsx ----------------------------------------------------------------------------------------------
+  // const { studentData, setStudentData } = useRegistration();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && user) {
+        console.log("User Name:", user?.name);
+        console.log("User Given-Name:", user?.given_name);
+        console.log("User Nick-Name:", user?.nickname);
+        console.log("User Family-Name:", user?.family_name);
+        console.log("User Email:", user?.email);
+        console.log("User Picture:", user?.picture);
+        console.log("User Email-Verified:", user?.email_verified);
+        console.log("User Sub:", user?.sub);
+        console.log("User Updated At:", user?.updated_at);
+
+        // const loginButtonVisibility = document.getElementById("loginButtonVisibility");
+        // loginButtonVisibility.style.display = "none"; // Ensure the element is visible
+
+        const loginButtonVisibility = document.getElementById("loginButtonVisibility");
+        loginButtonVisibility.style.display = "none"; // ✅ This disables the button
+
+        const signupButtonVisibility = document.getElementById("signupButtonVisibility");
+        signupButtonVisibility.style.display = "none"; // ✅ This disables the button
+
+        const logoutButtonVisibility = document.getElementById("logoutButtonVisibility");
+        logoutButtonVisibility.style.display = "block"; // ✅ This disables the button
+
+
+        
+    }
+  }, [user, isAuthenticated, isLoading]);
+
+  useEffect(() => {
+    const OAuthUserRegiser = async () => {
+      if (!isLoading && isAuthenticated && user) {
+        try {
+          const res = await axios.post("http://localhost:8002/register-oauth-user", {
+            name: user?.name,
+            givenName: user?.given_name,
+            nickName: user?.nickname,
+            familyName: user?.family_name,
+            email: user?.email,
+            isEmailVerified: String(user?.email_verified),
+            sub: user?.sub,
+            picture: user?.picture,
+            updatedAt: user?.updated_at,
+          });
+          console.log("hyyyyyy", res.data.message);
+        } catch (err) {
+          console.error(err.response?.data?.error || "Failed to Register OAuth Authorized User");
+        }
+      }
+    };
+
+    OAuthUserRegiser();
+  }, [user, isAuthenticated, isLoading]);
 
   return (
     <div className={styles.container}>
       {/* Header / Navigation */}
       <header className={styles.headerNav}>
-        <Link to={urlRoutes.landing}><div className={styles.logo}>StudentVision</div></Link>
+        <Link to={urlRoutes.landing}>
+          <div className={styles.logo}>StudentVision</div>
+        </Link>
         <nav className={styles.nav}>
           <a href="#tech">Technologies</a>
           <a href="#features">Features</a>
@@ -295,7 +355,7 @@ const LandingPage = () => {
         </nav>
         <div className={styles.headerActions}>
           <Link to={urlRoutes.login}>
-            <button className={styles.loginBtn}>
+            <button className={styles.loginBtn} id="loginButtonVisibility">
               Login{" "}
               <LogIn
                 size={iconSize}
@@ -305,14 +365,22 @@ const LandingPage = () => {
             </button>
           </Link>
           <Link to={urlRoutes.signup.personal}>
-            <button className={styles.signupBtn}>
-            Sign Up{" "}
-            <UserPlus
-              size={iconSize}
-              strokeWidth={2}
-              className={styles.signupIcon}
-            />
-          </button></Link>
+            <button className={styles.signupBtn} id="signupButtonVisibility">
+              Sign Up{" "}
+              <UserPlus
+                size={iconSize}
+                strokeWidth={2}
+                className={styles.signupIcon}
+              />
+            </button>
+          </Link>
+          <button className={styles.logoutBtn} id="logoutButtonVisibility" style={{ display: "none" }}>
+              Logout{" "}
+              <LogOut 
+                size={iconSize}
+                className={styles.logoutIcon}
+              />
+            </button>
         </div>
       </header>
 
@@ -340,7 +408,11 @@ const LandingPage = () => {
         </div>
         <div className={styles.heroImage}>
           {/* Here you could replace with an animated SVG or dynamic ML illustration */}
-          <img src={landingImage} className={styles.landing_Image} alt="Futuristic AI Illustration"/>
+          <img
+            src={landingImage}
+            className={styles.landing_Image}
+            alt="Futuristic AI Illustration"
+          />
         </div>
       </section>
 
